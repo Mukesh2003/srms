@@ -28,7 +28,7 @@ def index1():
 @app.route('/login',methods=['POST','GET'])
 def login():
     if session.get('user'):
-        return flask.redirect(url_for('index1'))
+        return flask.redirect(url_for('index1', target='_self'))
     if request.method=='POST':
         rollno=request.form['rollno']
         password=request.form['password']
@@ -113,10 +113,10 @@ def hellos():
 def logout():
     if session.get('user'):
         session.pop('user')
-        return redirect(url_for('login'))
+        return redirect(url_for('login', target='_self'))
     else:
         session.clear()
-        return redirect(url_for('login'))
+        return redirect(url_for('login', target='_self'))
 
  
 @app.route('/submit_assignment/<roll>',methods=["GET","POST"])
