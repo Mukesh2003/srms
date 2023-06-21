@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body{
+        background-image: url('/static/1.jpg'); 
+        background-size: cover;
+        text-align: center;
+       }
+        form{
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body style="margin-top: 15%;">
+    
+   <center> <h1>Login</h1> </center>
+    <center>
+    <table >
+    <form action="/login" method="POST">
+        <label>ROLL NO  :</label> <input type="text" name="rollno">
+        <br><br>
+        <label>PASSWORD :</label> <input type="password" name="password">
+<br><br>
+        <input type="submit" value="Login">
+
+        <br>
+        <p style="margin-left: 3%;">No account? <a href="/register">Register</a></p>
+    </form>
+</table>
+    </center>
+
+
+    {% if error %}
+           <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    
+</body>
+</html>

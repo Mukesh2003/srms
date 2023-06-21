@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>findex</title>
+    <style>
+        .l{
+            background-color: blue;
+            color:black;
+            padding:20px;
+            border-radius: 8px;
+            border: none;
+            font-size: 20px ;
+            margin: 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+   <center> <h1>Hello! {{ roll }}</h1></center>
+    <br>
+    <br><div>
+    <a href="/hellos" target="frame4"><button class='l'>Home</button></a>
+    <br>
+
+    <a href="/store_records/{{roll}}" target="frame4" ><button class='l'>Store records</button></a>
+    <br>
+    <a href="/view_myrecords/{{roll}}" target="frame4" ><button class='l'>View my records</button></a>
+    <br>
+    <a href="/submit_assignment/{{roll}}" target="frame4"><button class='l'>Submit assignments</button></a>
+    <br>
+    <a href="/view_attendance/{{roll}}" target="frame4"><button class="l">View attendance</button></a>
+    <br>
+    <a href="/logout" target="/"><button class='l'>Log out</button></a>
+</body>
+</html>

@@ -1,0 +1,38 @@
+body{
+    font-family: sans-serif;
+}
+
+.container{
+    
+    text-align: center;
+    margin-top: 15%;
+}
+
+h1{
+    text-align: center;
+}
+
+form{
+    margin-top: 20px;
+    margin: 0 auto;
+}
+input{
+    width: 20%;
+    padding: 3px;
+
+    border: 1px solid #ccc;
+}
+
+input[type="submit"] {
+    color: white;
+    background-color: #000;
+    border: none;
+    cursor: pointer;
+    margin-left: 3%;
+    align-items: center;
+    width: 10%;
+}
+
+.error{
+    color: red;
+}

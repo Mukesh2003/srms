@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty</title>
+
+    <style>
+        body{
+        background-image: url('/static/1.jpg'); 
+        background-size: cover;
+        text-align: center;
+       }
+        form{
+            margin-top: 20px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body style="margin-top: 15%;">
+   <center> <h2> Faculty Login</h2>
+<table style="align-content: center; border: 10px;">
+    <form action='/logf'  method="POST">
+
+        USERNAME:<input type="text" name="uname">
+        <br>
+<br>
+        PASSWORD:<input type="password" name="password">
+<br>
+        <br>
+
+        <input type="submit">
+    </form>
+</table>
+    </center>
+
+    {% if error %}
+       <center> <h3 style="color: red;"> {{ error }} </h3> </center>
+    {% endif %}
+    
+
+</body>
+</html>

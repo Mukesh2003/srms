@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+ <title>Update Student attendance</title>
+
+  <style>
+   body{
+    /* background-image: url('/static/2.jpg'); */
+    background-size: cover;
+    text-align: center;
+   }
+
+   input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+   }
+
+   input[type=number] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+   }
+
+   input[type=submit] {
+
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 4px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+   }
+
+   input[type=submit]:hover {
+    background-color: #45a049;
+   }
+  </style>
+ </head>
+ <body>
+ <h1>Student Information</h1>
+ <br><h1>{{msg}}
+ </h1><br><br>
+ 
+ <form action = "/update_att1" method="post">
+
+ <table align="center" bgcolor="#ffffff" cellspacing = "2" cellpadding = "13" border = "10" width="700">
+{% for row in rows %}
+  <tr><td>Roll Number</td><td><input type="text" name="roll" value="{{row[2]}}" readonly ></td></tr>
+  <tr><td>Name</td><td><input type="text" name="name" value="{{row[1]}}" readonly></td></tr>
+  <tr><td>Total classes attended before</td><td><input type="number" name="Total_cls_att" value="{{row[4]}}" readonly></td></tr>
+  <tr><td>Total classes conducted before</td><td><input type="number" name="Total_cls_conducted" value="{{row[3]}}" readonly></td></tr>
+  <tr><td>Attendance percent</td><td><input type="number" name="att_percent" value="{{row[5]}}" readonly></td></tr>
+  <tr><td>Number of classes to update attendance</td><td><input type="number" name="new_cls_conducted"></td></tr>
+  <tr><td>Number of attended classes by student</td><td><input type="number" name="new_cls_attended"></td></tr>
+  {% endfor %}
+
+  <tr><td></td><td><input type="submit" value="Submit"></td></tr>
+
+ </table>
+ </form>
+ </body>
+ </html>  

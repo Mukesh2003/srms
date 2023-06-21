@@ -1,0 +1,54 @@
+ <html>
+ <head>
+   <title>Assignments</title>
+
+ <style>
+  body{
+   background-image: url('/static/5.jpg');
+   background-size: cover;
+   text-align: center;
+   font-weight: bold;
+   font-size: larger;
+
+  }
+
+  a:link, a:visited {
+  background-color: #f44336;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  }
+
+  a:hover, a:active {
+  background-color: red;
+  }
+
+ </style>
+
+ </head>
+ <body>
+ <h1 style="color: green">Assignments</h1><br>
+
+ <table align="center" bgcolor="#ffffff" cellspacing = "2" cellpadding = "13" border = "10" width="700" >
+
+ <thead>
+ <td>ID</td>
+ <td>Roll Number</td>
+ <td>Filename</td>
+ <td>File</td>
+
+ </thead>
+ {% for row in rows %}
+ <tr>
+ <td>{{row[0]}}</td>
+ <td>{{row[1]}}</td>
+ <td>{{row[2]}}</td>
+ <td><a href="{{url_for('download_file',filename= row[3] ) }}">Download</a></td>
+ </tr>
+ {% endfor %}   
+ </table>
+ <br><br>
+ </body>
+ </html>

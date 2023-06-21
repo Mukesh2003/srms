@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+ <title>View Student attendance</title>
+
+  <style>
+   body{
+    background-size: cover;
+    text-align: center;
+   }
+
+   input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+   }
+
+   input[type=number] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+   }
+
+   input[type=submit] {
+
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+   }
+
+   input[type=submit]:hover {
+    background-color: #45a049;
+   }
+  </style>
+ </head>
+ <body>
+ <h1>Student Attendance</h1>
+ <br><h1>{{msg}}
+ </h1><br><br>
+ 
+
+ <table align="center" bgcolor="#ffffff" cellspacing = "2" cellpadding = "13" border = "10" width="700">
+{% for row in rows %}
+  <tr><td>Total classes attended </td><td><input type="number" name="Total_cls_att" value="{{row[4]}}" readonly></td></tr>
+  <tr><td>Total classes conducted </td><td><input type="number" name="Total_cls_conducted" value="{{row[3]}}" readonly></td></tr>
+  <tr><td>Attendance percent</td><td><input type="number" name="att_percent" value="{{row[5]}}" readonly></td></tr>
+  {% endfor %}
+</table>
+ 
+ </body>
+ </html>  
