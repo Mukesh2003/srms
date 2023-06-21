@@ -28,7 +28,7 @@ def index():
 @app.route('/login',methods=['POST','GET'])
 def login():
     if session.get('user'):
-        return flask.redirect(url_for('home'))
+        return flask.redirect(url_for('index'))
     if request.method=='POST':
         rollno=request.form['rollno']
         password=request.form['password']
