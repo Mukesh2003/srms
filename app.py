@@ -27,7 +27,7 @@ def index():
 @app.route('/login',methods=['POST','GET'])
 def login():
     if session.get('user'):
-        return redirect(url_for('home'))
+        return redirect(url_for('index'))
     if request.method=='POST':
         rollno=request.form['rollno']
         password=request.form['password']
@@ -82,7 +82,7 @@ def log():
         user=request.form['uname']
         password=request.form['password']
 
-        if user== "abc" and password== "123":
+        if (user== "abc" and password== "123") or (user== "faculty" and password== "hii") or (user== "hello" and password== "100") or (user== "fac" and password== "abc") :
             session['loggedin']=True
             
             session['username']='user'
@@ -112,9 +112,9 @@ def hellos():
 def logout():
     if session.get('username'):
         session.pop('username')
-        return redirect(url_for('login'))
+        return redirect(url_for('index'))
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('index'))
 
  
 @app.route('/submit_assignment/<roll>',methods=["GET","POST"])
