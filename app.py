@@ -6,7 +6,7 @@ from flask.wrappers import Response
 app=Flask(__name__)
 app.secret_key='secret_key'
 
-#mydb=mysql.connector.connect(host='localhost',user='root',password='Mukesh@2003',database='db')
+# mydb=mysql.connector.connect(host='localhost',user='root',password='Mukesh@2003',database='db')
 db=os.environ['RDS_DB_NAME']
 user=os.environ['RDS_USERNAME']
 password=os.environ['RDS_PASSWORD']
