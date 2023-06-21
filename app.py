@@ -22,13 +22,13 @@ with mysql.connector.connect(host=host,user=user,password=password,db=db) as con
 mydb=mysql.connector.connect(host=host,user=user,password=password,db=db)
 
 @app.route('/')
-def index():
+def index1():
     return render_template('index.html')
 
 @app.route('/login',methods=['POST','GET'])
 def login():
     if session.get('user'):
-        return flask.redirect(url_for('index'))
+        return flask.redirect(url_for('index1'))
     if request.method=='POST':
         rollno=request.form['rollno']
         password=request.form['password']
@@ -113,10 +113,10 @@ def hellos():
 def logout():
     if session.get('user'):
         session.pop('user')
-        return redirect(url_for('index'))
+        return redirect(url_for('index1'))
     else:
         session.clear()
-        return redirect(url_for('index'))
+        return redirect(url_for('index1'))
 
  
 @app.route('/submit_assignment/<roll>',methods=["GET","POST"])
