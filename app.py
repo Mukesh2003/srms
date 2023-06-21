@@ -1,4 +1,5 @@
 from flask import *
+from flask import redirect
 import mysql.connector
 import hashlib
 import os
@@ -27,7 +28,7 @@ def index():
 @app.route('/login',methods=['POST','GET'])
 def login():
     if session.get('user'):
-        return redirect(url_for('home'))
+        return flask.redirect(url_for('home'))
     if request.method=='POST':
         rollno=request.form['rollno']
         password=request.form['password']
@@ -114,6 +115,7 @@ def logout():
         session.pop('user')
         return redirect(url_for('index'))
     else:
+        session.clear()
         return redirect(url_for('index'))
 
  
