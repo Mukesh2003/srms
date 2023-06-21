@@ -113,10 +113,10 @@ def hellos():
 def logout():
     if session.get('user'):
         session.pop('user')
-        return redirect(url_for('login', target='_self'))
+        return flask.redirect(url_for('index', target='_self'))
     else:
         session.clear()
-        return redirect(url_for('login', target='_self'))
+        return flask.redirect(url_for('index', target='_self'))
 
  
 @app.route('/submit_assignment/<roll>',methods=["GET","POST"])
