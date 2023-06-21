@@ -8,10 +8,10 @@ app.secret_key='secret_key'
 
 # mydb=mysql.connector.connect(host='localhost',user='root',password='Mukesh@2003',database='db')
 db=os.environ['RDS_DB_NAME']
-user='USER': os.environ['RDS_USERNAME']
-password='PASSWORD': os.environ['RDS_PASSWORD']
-host='HOST': os.environ['RDS_HOSTNAME']
-port='PORT': os.environ['RDS_PORT']
+user=os.environ['RDS_USERNAME']
+password=os.environ['RDS_PASSWORD']
+host=os.environ['RDS_HOSTNAME']
+port=os.environ['RDS_PORT']
 with mysql.connector.connect(host=host,user=user,password=password,db=db) as conn:
     cursor=conn.cursor(buffered=True)
     cursor.execute("create table if not exists detail (name varchar(255),rollno varchar(10) PRIMARY KEY,password VARCHAR(255))")
