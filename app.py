@@ -116,7 +116,7 @@ def logout():
     #     return flask.redirect(url_for('index1', target='_self'))
     # else:
     session.clear()
-    return flask.redirect(url_for('index1', target='_self'))
+    return redirect(url_for('index1', target='_self'))
 
  
 @app.route('/submit_assignment/<roll>',methods=["GET","POST"])
