@@ -6,19 +6,19 @@ from flask.wrappers import Response
 app=Flask(__name__)
 app.secret_key='secret_key'
 
-mydb=mysql.connector.connect(host='localhost',user='root',password='Mukesh@2003',database='db')
-# db=os.environ['RDS_DB_NAME']
-# user=os.environ['RDS_USERNAME']
-# password=os.environ['RDS_PASSWORD']
-# host=os.environ['RDS_HOSTNAME']
-# port=os.environ['RDS_PORT']
-# with mysql.connector.connect(host=host,user=user,password=password,db=db) as conn:
-#     cursor=conn.cursor(buffered=True)
-#     cursor.execute("create table if not exists detail (name varchar(255),rollno varchar(10) PRIMARY KEY,password VARCHAR(255))")
-#     cursor.execute("create table if not exists Student_Info (id INT AUTO_INCREMENT UNIQUE KEY, name VARCHAR(255) NOT NULL, roll_number VARCHAR(10) PRIMARY KEY, total_classes INT,classes_attended INT,attendance_percent INT)")
-#     cursor.execute("create table if not exists Assignments (id INT AUTO_INCREMENT PRIMARY KEY, roll_num VARCHAR(10),Assignment_name VARCHAR(255) NOT NULL,file_name VARCHAR(255) NOT NULL ,filedata LONGBLOB,FOREIGN KEY(roll_num) REFERENCES Student_Info(roll_number))")
-#     cursor.execute("create table if not exists Records (id INT AUTO_INCREMENT PRIMARY KEY, roll_num VARCHAR(10),record_name VARCHAR(255) NOT NULL, file_name VARCHAR(255) NOT NULL,filedata LONGBLOB,FOREIGN KEY(roll_num) REFERENCES Student_Info(roll_number))")
-# mydb=mysql.connector.connect(host=host,user=user,password=password,db=db)
+# mydb=mysql.connector.connect(host='localhost',user='root',password='Mukesh@2003',database='db')
+db=os.environ['RDS_DB_NAME']
+user=os.environ['RDS_USERNAME']
+password=os.environ['RDS_PASSWORD']
+host=os.environ['RDS_HOSTNAME']
+port=os.environ['RDS_PORT']
+with mysql.connector.connect(host=host,user=user,password=password,db=db) as conn:
+    cursor=conn.cursor(buffered=True)
+    cursor.execute("create table if not exists detail (name varchar(255),rollno varchar(10) PRIMARY KEY,password VARCHAR(255))")
+    cursor.execute("create table if not exists Student_Info (id INT AUTO_INCREMENT UNIQUE KEY, name VARCHAR(255) NOT NULL, roll_number VARCHAR(10) PRIMARY KEY, total_classes INT,classes_attended INT,attendance_percent INT)")
+    cursor.execute("create table if not exists Assignments (id INT AUTO_INCREMENT PRIMARY KEY, roll_num VARCHAR(10),Assignment_name VARCHAR(255) NOT NULL,file_name VARCHAR(255) NOT NULL ,filedata LONGBLOB,FOREIGN KEY(roll_num) REFERENCES Student_Info(roll_number))")
+    cursor.execute("create table if not exists Records (id INT AUTO_INCREMENT PRIMARY KEY, roll_num VARCHAR(10),record_name VARCHAR(255) NOT NULL, file_name VARCHAR(255) NOT NULL,filedata LONGBLOB,FOREIGN KEY(roll_num) REFERENCES Student_Info(roll_number))")
+mydb=mysql.connector.connect(host=host,user=user,password=password,db=db)
 
 @app.route('/')
 def index():
