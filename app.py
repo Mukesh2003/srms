@@ -110,8 +110,8 @@ def hellos():
 
 @app.route('/logout')
 def logout():
-    if session.get('username'):
-        session.pop('username')
+    if session.get('user'):
+        session.pop('user')
         return redirect(url_for('index'))
     else:
         return redirect(url_for('index'))
