@@ -2,6 +2,7 @@ from flask import *
 from flask import redirect
 import mysql.connector
 import hashlib
+from flask_login import login_user, logout_user, current_user
 import os
 from flask.wrappers import Response
 app=Flask(__name__)
@@ -25,10 +26,17 @@ mydb=mysql.connector.connect(host=host,user=user,password=password,db=db)
 def index1():
     return render_template('index.html')
 
+@app.after_request
+def after_request(response):
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers.add('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0')
+    return response
+
 @app.route('/login',methods=['POST','GET'])
 def login():
-    if session.get('user'):
-        return flask.redirect(url_for('index1', target='_self'))
+    if session.get('loggedin')=='loggedout':
+        session.clear()
+        return redirect(url_for('index1'))
     if request.method=='POST':
         rollno=request.form['rollno']
         password=request.form['password']
@@ -41,8 +49,9 @@ def login():
         user=cursor.fetchone()
 
         if user is not None:
-            session['loggedin']=True
-            session['username']=user
+            session['loggedin']='loggedin'
+            # session['username']=user
+            session['user']=rollno
             
             return  render_template('dashstu.html',roll=rollno)                 #'''redirect(url_for('dashboard'))'''
         else:
@@ -79,6 +88,9 @@ def register():
 
 @app.route('/logf',methods=['POST','GET'])
 def log():
+    if session.get('loggedin')=='loggedout':
+        session.clear()
+        return redirect(url_for('index1'))
     if request.method=='POST':
         user=request.form['uname']
         password=request.form['password']
@@ -111,12 +123,9 @@ def hellos():
 
 @app.route('/logout')
 def logout():
-    # if session.get('user'):
-    #     session.pop('user')
-    #     return flask.redirect(url_for('index1', target='_self'))
-    # else:
-    session.clear()
-    return redirect(url_for('index1', target='_self'))
+    session['loggedin']='loggedout'
+    return redirect(url_for('index1'))
+
 
  
 @app.route('/submit_assignment/<roll>',methods=["GET","POST"])
