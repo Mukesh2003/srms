@@ -119,9 +119,9 @@ def logout():
     if session.get('user'):
         session.pop('user')
         session['logged_in']=True
-        return redirect(url_for('login'))
+        return redirect(url_for('index'))
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('index'))
 
  
 @app.route('/submit_assignment/<roll>',methods=["GET","POST"])
