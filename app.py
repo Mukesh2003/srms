@@ -34,7 +34,7 @@ def after_request(response):
 
 @app.route('/login',methods=['POST','GET'])
 def login():
-    if session.get('loggedin')=='loggedout':
+    if session.get('loggedin')!='loggedin':
         session.clear()
         return redirect(url_for('index1'))
     if request.method=='POST':
@@ -88,7 +88,7 @@ def register():
 
 @app.route('/logf',methods=['POST','GET'])
 def log():
-    if session.get('loggedin')=='loggedout':
+    if session.get('loggedin')!='loggedin':
         session.clear()
         return redirect(url_for('index1'))
     if request.method=='POST':
@@ -96,7 +96,7 @@ def log():
         password=request.form['password']
 
         if (user== "abc" and password== "123") or (user== "faculty" and password== "hii") or (user== "hello" and password== "100") or (user== "fac" and password== "abc") :
-            session['loggedin']=True
+            session['loggedin']='loggedin'
             
             session['username']='user'
             return  render_template('dashfac.html')   #'succesful logged as faculty' 
