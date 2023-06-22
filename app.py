@@ -124,7 +124,7 @@ def hellos():
 @app.route('/logout')
 def logout():
     session['loggedin']='loggedout'
-    return redirect(url_for('index1'))
+    return redirect(url_for('login'))
 
 
  
