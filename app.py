@@ -8,35 +8,29 @@ from flask.wrappers import Response
 app=Flask(__name__)
 app.secret_key='secret_key'
 
-# mydb=mysql.connector.connect(host='localhost',user='root',password='Mukesh@2003',database='db')
-db=os.environ['RDS_DB_NAME']
-user=os.environ['RDS_USERNAME']
-password=os.environ['RDS_PASSWORD']
-host=os.environ['RDS_HOSTNAME']
-port=os.environ['RDS_PORT']
-with mysql.connector.connect(host=host,user=user,password=password,db=db) as conn:
-    cursor=conn.cursor(buffered=True)
-    cursor.execute("create table if not exists detail (name varchar(255),rollno varchar(10) PRIMARY KEY,password VARCHAR(255))")
-    cursor.execute("create table if not exists Student_Info (id INT AUTO_INCREMENT UNIQUE KEY, name VARCHAR(255) NOT NULL, roll_number VARCHAR(10) PRIMARY KEY, total_classes INT,classes_attended INT,attendance_percent INT)")
-    cursor.execute("create table if not exists Assignments (id INT AUTO_INCREMENT PRIMARY KEY, roll_num VARCHAR(10),Assignment_name VARCHAR(255) NOT NULL,file_name VARCHAR(255) NOT NULL ,filedata LONGBLOB,FOREIGN KEY(roll_num) REFERENCES Student_Info(roll_number))")
-    cursor.execute("create table if not exists Records (id INT AUTO_INCREMENT PRIMARY KEY, roll_num VARCHAR(10),record_name VARCHAR(255) NOT NULL, file_name VARCHAR(255) NOT NULL,filedata LONGBLOB,FOREIGN KEY(roll_num) REFERENCES Student_Info(roll_number))")
-mydb=mysql.connector.connect(host=host,user=user,password=password,db=db)
+mydb=mysql.connector.connect(host='localhost',user='root',password='Mukesh@2003',database='db')
+# db=os.environ['RDS_DB_NAME']
+# user=os.environ['RDS_USERNAME']
+# password=os.environ['RDS_PASSWORD']
+# host=os.environ['RDS_HOSTNAME']
+# port=os.environ['RDS_PORT']
+# with mysql.connector.connect(host=host,user=user,password=password,db=db) as conn:
+#     cursor=conn.cursor(buffered=True)
+#     cursor.execute("create table if not exists detail (name varchar(255),rollno varchar(10) PRIMARY KEY,password VARCHAR(255))")
+#     cursor.execute("create table if not exists Student_Info (id INT AUTO_INCREMENT UNIQUE KEY, name VARCHAR(255) NOT NULL, roll_number VARCHAR(10) PRIMARY KEY, total_classes INT,classes_attended INT,attendance_percent INT)")
+#     cursor.execute("create table if not exists Assignments (id INT AUTO_INCREMENT PRIMARY KEY, roll_num VARCHAR(10),Assignment_name VARCHAR(255) NOT NULL,file_name VARCHAR(255) NOT NULL ,filedata LONGBLOB,FOREIGN KEY(roll_num) REFERENCES Student_Info(roll_number))")
+#     cursor.execute("create table if not exists Records (id INT AUTO_INCREMENT PRIMARY KEY, roll_num VARCHAR(10),record_name VARCHAR(255) NOT NULL, file_name VARCHAR(255) NOT NULL,filedata LONGBLOB,FOREIGN KEY(roll_num) REFERENCES Student_Info(roll_number))")
+# mydb=mysql.connector.connect(host=host,user=user,password=password,db=db)
 
 @app.route('/')
 def index1():
     return render_template('index.html')
 
-@app.after_request
-def after_request(response):
-    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-    response.headers.add('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0')
-    return response
-
 @app.route('/login',methods=['POST','GET'])
 def login():
-    if session.get('loggedin')!='loggedin':
-        session.clear()
-        return redirect(url_for('index1'))
+    if session.get('user') and session.get('logged_in'):
+        username=session.get('user')
+        return  render_template('dashstu.html',roll=username) 
     if request.method=='POST':
         rollno=request.form['rollno']
         password=request.form['password']
@@ -49,14 +43,13 @@ def login():
         user=cursor.fetchone()
 
         if user is not None:
-            session['loggedin']='loggedin'
+            session['logged_in']=True
             # session['username']=user
             session['user']=rollno
             
             return  render_template('dashstu.html',roll=rollno)                 #'''redirect(url_for('dashboard'))'''
         else:
             return render_template('login.html',error="Incorrect username or password")
-
     return render_template('login.html')
 
 @app.route('/register',methods=['POST','GET'])
@@ -88,7 +81,7 @@ def register():
 
 @app.route('/logf',methods=['POST','GET'])
 def log():
-    if session.get('loggedin')!='loggedin':
+    if session.get('loggedin') == 'loggedout':
         session.clear()
         return redirect(url_for('index1'))
     if request.method=='POST':
@@ -123,9 +116,12 @@ def hellos():
 
 @app.route('/logout')
 def logout():
-    session['loggedin']='loggedout'
-    return redirect(url_for('login'))
-
+    if session.get('user'):
+        session.pop('user')
+        session['logged_in']=True
+        return redirect(url_for('login'))
+    else:
+        return redirect(url_for('login'))
 
  
 @app.route('/submit_assignment/<roll>',methods=["GET","POST"])
